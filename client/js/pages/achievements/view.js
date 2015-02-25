@@ -27,7 +27,9 @@ module.exports = PageView.extend({
   },
   initialize: function (spec) {
     var self = this;
-    app.achievements.getOrFetch(spec.id, {all: true}, function (err, model) {
+    log(spec.id);
+
+    app.achievements.getOrFetch(spec.id,{all: true}, function (err, model) {
       if (err) {
         return log.error('couldnt find a achievement with id: ' + spec.id);
       }
@@ -39,13 +41,16 @@ module.exports = PageView.extend({
         }
         self.model.sessionDetails.model = sessionModel;
 
-        log('Got achievement session', sessionModel.name);
+        log('Got achievement session', sessionModel.id);
+
+        self.render();
+
+        self.queryByHook('achievement-session');
 
         self.renderSubview(new SessionView({
           model: sessionModel
         }),self.queryByHook('achievement-session'));
       });
-        self.render();
     });
   }
 });
