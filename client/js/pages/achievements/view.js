@@ -41,22 +41,11 @@ module.exports = PageView.extend({
 
         log('Got achievement session', sessionModel.name);
 
-        self.render();
+        self.renderSubview(new SessionView({
+          model: sessionModel
+        }),self.queryByHook('achievement-session'));
       });
+        self.render();
     });
-  },
-  subviews: {
-    session: {
-      container: '[data-hook=achievement-session] div',
-      parent: this,
-      waitFor: 'model.sessionDetails.name',
-      prepareView: function (el) {
-        var self = this;
-        return new SessionView({
-          el: el,
-          model: self.model.sessionDetails
-        });
-      }
-    },
   }
 });
