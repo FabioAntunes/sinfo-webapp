@@ -74,7 +74,7 @@ module.exports = PageView.extend({
             log('data', data);
             log('changedAttributes', changedAttributes);
 
-            if(changedAttributes.job.start === null)
+            if(data.job.start === null || data.job.start === '')
               changedAttributes.job.start = 0;
 
             model.save(changedAttributes, {
