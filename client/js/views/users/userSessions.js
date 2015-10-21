@@ -14,7 +14,8 @@ module.exports = View.extend({
   bindings: {
     'sectiontitle':'[data-hook~=title]',
   },
-  template:templates.partials.users.userSessions,
+  autoRender: false,
+  template: templates.partials.sessions.area,
   render: function(){
 
     log(this);
@@ -27,33 +28,31 @@ module.exports = View.extend({
     this.renderWithTemplate();
     log('rendering');
 
-    this.renderCollection(this.model.sessionDetails, SessionView, this.queryByHook('user-sessions'));
+    this.renderCollection(this.model.sessionDetails, SessionView, this.queryByHook('sessions-list'));
   },
   initialize: function() {
     var self = this;
 
     log('initialize');
 
-    if(!app.sessions.length ){
-      return app.sessions.fetch({ success: function() {
+    if(app.sessions.length ){
+      return self.filter();
+    }
+
+    app.sessions.fetch({ success: function() {
         self.filter();
       }});
-    }
-    self.filter();
   },
   sectiontitle: '',
   filter: function(){
     var self = this;
+    log('Requesting the Session ids for', self.model.id);
     tickets.getUserSessions(self.model.id, function (err, ticket) {
-      var aux = ticket.map(function(t){
-        return t.session;
-      });
-
-      log('Session Ids', aux);
+      log('Session Ids', ticket);
 
       self.model.sessionDetails = new SubCollection(app.sessions, {
         filter: function (session) {
-          return aux.indexOf(session.id) != -1;
+          return ticket.indexOf(session.id) != -1;
         }
       });
       self.render();

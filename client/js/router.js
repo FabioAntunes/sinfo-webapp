@@ -3,7 +3,6 @@ var Router = require('ampersand-router');
 var ViewSwitcher = require('ampersand-view-switcher');
 
 var HomePage = require('./pages/home');
-var ContactPage = require('./pages/contacts');
 
 var PageNotFound = require('./pages/notFound');
 
@@ -37,7 +36,6 @@ var WebAppRouter = Router.extend({
     '': 'home',
     'achievements': 'achievements',
     'achievements/:id': 'achievementView',
-    'contacts':'contacts',
     'auth/login?:query': 'fenixLogin',
     'auth/login': 'login',
     'partners': 'partners',
@@ -50,6 +48,7 @@ var WebAppRouter = Router.extend({
     'me': 'me',
     'me/edit': 'meEdit',
     'speakers/:id': 'speakerView',
+    'stream': 'streamView',
     '(*path)': 'catchAll',
   },
 
@@ -78,12 +77,6 @@ var WebAppRouter = Router.extend({
    this.trigger('page', new AchievementViewPage({
      id: id
    }));
-  },
-
-  contacts: function(){
-    this.trigger('page', new ContactPage({
-      model: app.me
-    }));
   },
 
   me: function () {
@@ -165,7 +158,7 @@ var WebAppRouter = Router.extend({
 
   speakers: function () {
     this.trigger('page', new Speakers({
-      collection: app.speakers
+      collection: app.speakers.current
     }));
   },
 

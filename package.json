@@ -41,11 +41,11 @@
     "stylizer": "^1.0.0",
     "templatizer": "^1.0.0",
     "underscore": "^1.6.0",
-    "url": "^0.10.2",
+    "url": "^0.10.3",
     "xhr": "^2.0.1"
   },
   "devDependencies": {
-    "nodemon": "^1.2.1"
+    "nodemon": "^1.5.0"
   },
   "jshintConfig": {
     "asi": false,

@@ -12,10 +12,11 @@
 @import './speakers'
 @import './topbar'
 @import './users'
+@import './members'
 
 .error
   color: #DD4B39
-  
+
 .valid
   color: #77b451
 
@@ -24,8 +25,10 @@ body
   font-family: Roboto, sans-serif
 
 .page
-  padding-top: 85px
   min-height: 480px
+  padding: 5em 0
+  &.home
+    padding: 0
 
 table
   margin-bottom: 0
@@ -44,3 +47,9 @@ footer
 
   .note
     margin-top: 30px
+
+ul
+  list-style-position: inside
+
+.justify-text
+  text-align: justify
